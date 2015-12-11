@@ -39,7 +39,7 @@
             <!--<li><a href="visualization.html#chapter_one" id="nav2">VISUALIZATION</a></li>-->
             <li><a href="https://github.com/austinwu0/cs109-final-project" target="_blank">GIT</a></li>
             <!--<li><a href="https://docs.google.com/document/d/1CMFDlRChkY_jYVbcKnQ7r_KYUoOQrEGPPxC4wvye3mQ" id="nav5">PROCESS BOOK</a></li>-->
-            <li><a >VIDEO</a></li>
+            <li><a href="http://vimeo.com/148580765" target="_blank">VIDEO</a></li>
           </ul>
         </div>
     <div class="div1" id="back">
@@ -139,7 +139,7 @@
 
       <p class="title emphasis">Results</p>
       <p>We regressed our selected features against 2015 PTR ratios in each zipcode using Ordinary Least Squares, Ridge, and Lasso methods of regression. The performance of each of these regressions as well as the baseline are shown below. So how well did our models perform?</p><br>
-      This table shows some features of our models. By looking at root-mean-square error, we can see that all of our regression models  beat the baseline model in terms of accuracy of prediction. <br><br>
+      This table shows some features of our models. By looking at root-mean-square error, we can see that all of our regression models  beat the baseline model in terms of accuracy of prediction. <br><br><br>
       <img src="images/bar.png" width="60%" class="stats"><br><br>
       This graph shows the overall performance of all of our models.<br><br>
       <img src="images/overall.png" width="80%" class="stats"><br><br>
@@ -157,7 +157,10 @@
 We saw early on that that the 2011 PTR ratio was going to be a good, probably the best, feature for predicting the 2015 ratio. Indeed, we experimented with some models excluding this variable, and they performed much worse. That being said, we were happy to see theat our demographic, business, income, and jail and prison features did add to the predictive ability of the model.<br><br>
 If we were to continue working on this project it would be interesting to involve additional features, such as the features we scraped from yelp, which seem to be good predictors all by themselves. It would also be interesting to experiment with other regression models such as logistic regressions, or random forest regressions. These models are more complex, so they might do better in terms of r-squared and rmse values. However, according to Occam's Razor, the simplest model that works should be the one used. This makes a lot of sense in terms of interpreting the model - the more complex the model is, the harder it becomes to determine what the model indicates about the real-life system being modeled. We did some of this when we looked at the features with the most positive and most negative coefficients.
 While the linear regression with ridge regularization model works quite well, it is apparent from the residual distribution that we systematically over-estimated the PTR ratio when the 2011-ratio was low and systematically under-estimated when the 2011-ratio was high. <br><br>
-It was interesting to learn about the interactions between various features and PTR, and we will keep all of this in mind when deciding where to live next year!</p>
+It was interesting to learn about the interactions between various features and PTR, and we will keep all of this in mind when deciding where to live next year!</p><br><br>
+
+
+<iframe src="https://player.vimeo.com/video/148580765" width="500" height="266" frameborder="0" class="video"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/148580765"></a>.</p>
         
       <div id="space"></div>
       <div class="graph" id="yelpvis"><br></div>
