@@ -153,7 +153,11 @@
       <p>As you can see, we were able to predict better than the baseline. We can see how good our predictions were at a geographical level--which counties were better explained by our models compared to others?</p><br>
       <p class="emphasis">Note: Scroll on the maps to zoom.</p>
       <div class="graph" id="threevis"><br></div>
-      <p class="emphasis">
+      <p>We spent a large portion of our project exploring the data, and considering the value and meaning of various response variables. It was interesting to shift from predicting house prices to predicting the PTR ratio. This was something we had not considered when we originally started the project, but is a very meaningful value if you're a young person (like us!) planning to relocate and having to decide between buying and renting.<br><br>
+We saw early on that that the 2011 PTR ratio was going to be a good, probably the best, feature for predicting the 2015 ratio. Indeed, we experimented with some models excluding this variable, and they performed much worse. That being said, we were happy to see theat our demographic, business, income, and jail and prison features did add to the predictive ability of the model.<br><br>
+If we were to continue working on this project it would be interesting to involve additional features, such as the features we scraped from yelp, which seem to be good predictors all by themselves. It would also be interesting to experiment with other regression models such as logistic regressions, or random forest regressions. These models are more complex, so they might do better in terms of r-squared and rmse values. However, according to Occam's Razor, the simplest model that works should be the one used. This makes a lot of sense in terms of interpreting the model - the more complex the model is, the harder it becomes to determine what the model indicates about the real-life system being modeled. We did some of this when we looked at the features with the most positive and most negative coefficients.
+While the linear regression with ridge regularization model works quite well, it is apparent from the residual distribution that we systematically over-estimated the PTR ratio when the 2011-ratio was low and systematically under-estimated when the 2011-ratio was high. <br><br>
+It was interesting to learn about the interactions between various features and PTR, and we will keep all of this in mind when deciding where to live next year!</p>
         
       <div id="space"></div>
       <div class="graph" id="yelpvis"><br></div>
