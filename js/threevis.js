@@ -19,8 +19,8 @@ ThreeVis = function(_parentElement, metric, words, color){
 
 ThreeVis.prototype.initVis = function(){
     var that = this;
-    var width = 280;
-    var height = 250;
+    var width = 0.2*screen.width;//280;
+    var height = .9*width;//250;
   //append svg element
         var rateById = d3.map();
 
@@ -33,7 +33,7 @@ ThreeVis.prototype.initVis = function(){
             .rangeRound([6, 7, 8, 9, 10])//(d3.range(11))*/
 
         var projection = d3.geo.albersUsa()
-            .scale(375)
+            .scale(1.34*width)
             .translate([width / 2, height / 2]);
 
         var path = d3.geo.path()

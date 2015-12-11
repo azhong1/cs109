@@ -19,8 +19,8 @@ OneVis = function(_parentElement, metric, words, color){
 
 OneVis.prototype.initVis = function(){
     var that = this;
-    var width = 420;
-    var height = 400;
+    var width = 0.3*screen.width;//420;
+    var height = 0.95*width;//400;
   //append svg element
         var rateById = d3.map();
 
@@ -33,7 +33,7 @@ OneVis.prototype.initVis = function(){
             .rangeRound([6, 7, 8, 9, 10])//(d3.range(11))*/
 
         var projection = d3.geo.albersUsa()
-            .scale(550)
+            .scale(1.3*width)
             .translate([width / 2, height / 2]);
 
         var path = d3.geo.path()

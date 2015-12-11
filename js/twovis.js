@@ -19,11 +19,11 @@ TwoVis = function(_parentElement, metric, words, color){
 
 TwoVis.prototype.initVis = function(){
     var that = this;
-    var width = 960;
-    var height = 700;
+    var width = 0.67*screen.width;
+    var height = 0.73*width;
   //append svg element
         var rateById = d3.map();
-
+        console.log(screen.width);
         var quantile = d3.scale.quantile()
           .range(d3.range(11))
         /*var quantile_less = d3.scale.linear()
@@ -33,7 +33,7 @@ TwoVis.prototype.initVis = function(){
             .rangeRound([6, 7, 8, 9, 10])//(d3.range(11))*/
 
         var projection = d3.geo.albersUsa()
-            .scale(1280)
+            .scale(1.3*width)
             .translate([width / 2, height / 2]);
 
         var path = d3.geo.path()
