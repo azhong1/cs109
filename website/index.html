@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>House Price Modeling</title>
+
+    <!-- ADD Libraries-->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="libs/jquery/jquery-2.1.1.min.js" charset="utf-8"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="dm/dist/datamaps.world.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+
+    <!-- Get some nice font-->
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- add own stylesheet-->
+    <link rel="stylesheet" type="text/css" href="css/myStyle.css">
+
+    <!-- add own scripts-->
+    <script src = "js/onevis.js"></script>
+    <script src = "js/twovis.js"></script>
+    <script src = "js/threevis.js"></script>
+
+</head>
+<body>
+    <div class="navbar_home">
+          <ul>
+            <li><a id="nav_motivation">PROJECT OVERVIEW</a></li>
+            <!--<li><a id="nav_objectives">OBJECTIVES</a></li>
+            <li><a id="nav_approach">APPROACH</a></li>-->
+            <li><a id="nav_analysis">ANALYSIS</a></li>
+            <!--<li><a href="visualization.html#chapter_one" id="nav2">VISUALIZATION</a></li>-->
+            <li><a href="https://github.com/austinwu0/cs109-final-project" target="_blank">GIT</a></li>
+            <!--<li><a href="https://docs.google.com/document/d/1CMFDlRChkY_jYVbcKnQ7r_KYUoOQrEGPPxC4wvye3mQ" id="nav5">PROCESS BOOK</a></li>-->
+            <li><a >VIDEO</a></li>
+          </ul>
+        </div>
+    <div class="div1" id="back">
+      <div class="div2">
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <p class="heading-begin emphasis" id="1">MODELING HOUSE AND RENT PRICES</p>
+      <!--<p class="heading-begin" id="1">M&nbspO&nbspD&nbspE&nbspL&nbspI&nbspN&nbspG H&nbspO&nbspU&nbspS&nbspE P&nbspR&nbspI&nbspC&nbspE&nbspS </p>-->
+      <p class="heading-middle" id="2">on neighborhood factors across the US</p>
+      <a><p id="start_button" class="temp_title_begin">START</p></a>
+      <a href="visualization.html#chapter_one"><p class="heading-end"></p></a>
+    </div>
+    
+    <div class="col-md-7" id="motivation">
+      <p class="title_large emphasis">Project Overview</p>
+      <p class="title emphasis">Background and Motivation</p>
+      <p class="title2">As a group of four seniors who are all heading across the United States after graduation and entering the real world, a pressing issue on our minds has been finding our first apartment or house in our new city. We all want to find a place to call home, while also making a sound financial decision. Where in the city should we live? Should we rent? Should we buy?
+        <br><br>
+      We are also interested in learning more about our new homes and how the composition of the community and local economy affect the financial value of real estate in our areas. Our new communities will have neighborhoods with their own distinct character, from the posh, expensive district to the gritty, up and coming districts. We are interested in how the fabric of these communities in terms of demographic and economic factors reflect housing indicators in the area.
+        <br><br>
+      To look deeper into these questions, we decided to look at Price-to-Rent (PTR) ratios of different areas of the United States, which is the median existing home price divided by the average annual rent you would pay for a comparable home in the area. This is an informative metric for whether to buy or rent a property. If PtR ratios are very high in an area, then renting is likely a better deal. If PtR ratios are very low, then buying a home makes more financial sense. </p>
+    </div>
+
+
+    <div class="col-md-7" id="objectives">
+      <p class="title emphasis">Objectives</p>
+      <p class="title2">We had questions that we wanted to answer:<br>
+        <br>
+        - What do Price-to-Rent ratios look like across the country?<br>
+        - What demographic and economic features in the community are associated with a larger increase in Price-to-Rent ratios over a period of about 5 years?<br>
+        - Can we incorporate these features into a model and predict Price-to-Rent ratios for an area? <br>
+        - Where does our model perform the best? Where does our model perform the worst? 
+
+      </p>
+
+    </div>
+
+
+    <div class="col-md-7" id="approach">
+      <p class="title emphasis">Approach</p>
+      <p class="title2">We retrieved zipcode-level data for median house price per square foot across the United States from <a href="http://www.zillow.com/research/data/">Zillow</a>, a real estate database company. For our predictors, we aggregated data from a variety of sources. Initially, we used <a href="http://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml">2010 US census data </a>which detailed zipcode-level demographic data, such as age, race and types of households.
+      <br><br>
+       As we iterated through various regression models, we sought to improve our models by adding new predictors to our regression. We aggregated jail data and prison indicator variables (i.e. whether or not there is a jail in a zipcode) from <a href="http://enigma.io/">enigma.io</a>, median income data, number of businesses, and data that we scraped from Yelp. For Yelp, we randomly sampled zipcodes, grabbed businesses in the categories of active, arts, education, nightlife, pets, shopping and restaurants, and took the proportion of busineseses in each category. For all of our features, we considered if we needed to transform or normalize the data, and did so, if necessary. We also built a script that would map zipcodes to counties, allowing use Census data that only existed at the county level. 
+        <br><br>
+      We first regressed census data along with jail/prison data on change in housing prices from 2000 to 2010. Our first model had very low explanatory power, so we sought more features. However, as we thought about the story we wanted to tell, we started thinking that examining other response variables might lend to more interesting and easily interpretable conclusions. We looked at a Zillow metric for home values that accounts for some biases that come with using their raw house price data. We eventually settled on looking at price-to-rent ratio (PTR).
+        <br><br>
+      Eventually, the final model progress was: forward variable selection using ordinary least squares regression, linear regression with lasso regularization, linear regression with ridge regularization, and finally, support vector machines. Ultimately, our best model employed ridge regularization. Below, we will walk you through a simple overview of the results from our analysis. Please refer to the github for greater detail in our methodology. </p>
+      <br><br>
+    </div>
+
+
+    <div class="col-md-7" id="analysis">
+      <p class="title_large emphasis">Analysis</p>
+      <p class="title emphasis">Exploratory Analysis</p>
+      <p class="emphasis">House and Rental Price Data</p>
+      <p>We were interested in how the PtR ratios differed across different geographic areas in the US, and also how much heterogeneity in PtR values can exist within a small area. <p>
+        <p>Price-to-Rent Ratio = median house price per sq. foot / annual median rental price per sq. foot.</p> 
+        <p>To make the data easier to see on a map, we aggregated the zipcode data into counties. The redder areas below correspond to areas with lower PtR ratios, and the bluer areas are areas with higher PtR ratios. </p>
+        <br>
+        <p class="emphasis">Note: Scroll on the maps to zoom.</p>
+      <div class="graph" id="onevis"><br></div>
+      <div class="graph" id="twovis"><br></div>
+      
+      <p>A higher Price-to-Rent ratio indicates that it is cheaper for residents to rent a house or apartment, rather than purchase one. Between 2011 and 2015, the PtR ratio increased almost twofold in California and other areas that can be seen by a clear change from predominantly red colors and light blue colors in 2011 to predominantly darker blues in 2015. Areas that decreased in PtR ratio included Texas, as indicated by the increase in darker red counties in the 2015 map. Our next step is to do some exploratory analysis on whether there are demographic and business data trends for 2010, perhaps in the same areas that we saw noticeable changes in PtR ratio.</p>
+      <br><br>
+      <p class="emphasis">Demographic Data</p>
+      <p class="title2">This is the data that we downloaded from the 2010 Census on zipcodes across the US. This data information on demographics such as sex, age, and race. It also gave us information on household composition: the percentage of households that have single male and female residents, the percentage of households with single mothers, percentage of households that were family households or non-family households, the percentage of households that had children or seniors, etc. We also retrieved business data from the census. 
+        <br><br>
+      In all, we collected data 61 different features across 27,000 zipcodes across the US for our analysis. You can see some of the more interesting demographic trends below.
+      </p>
+      <p class="emphasis">Note: Scroll on the maps to zoom.</p>
+      <div class="graph" id="featurevis"><br></div><br>
+      <p>Population is as we might expect: a higher concentration of people live on the coast and a lower concentration of people live in the midwest. The median income map shows that incomes are lowest around Mississippi, Alabama, Kentucky and some counties in New Mexico. The highest incomes are concentrated in the northeast.</p> 
+      <div class="graph" id="featurevis1"><br></div><br>
+      <p>We also decided to look closely at some minorities to see if there were any trends across the US regarding which neighborhoods they lived in. We saw a strong trend in the percentage African American people in counties, with a higher concentration in the south and very low concentrations in the midwest. The residential areas of Asians had an opposite trend, with most congregating around the west and east coast and few in the southeast states (except for Florida). It seems, from an initial glance, that Asians tend to live in areas close to where we saw the highest increase in the Price-to-rent ratio.</p>
+      <div class="graph" id="featurevis2"><br></div><br>
+      <p>We also thought that looking at % family households would be a useful feature, since we hypothesized that price-to-rent ratio would be lower in suburban areas or neighborhoods with a higher concentration of families vs. single households. Family households are more common in the midwest. Furthermore, we looked at the percentage of occupied housing units in order to capture the supply of housing in our analysis. We think that housing supply and demand would be important features to consider when modeling on prices. Here we see that supply is highest (or the lowest number of occupied housing units) in the southwest region.</p><br>
+
+      <p class="title emphasis">Making Our Model</p>
+      <p>Next, we set out to answer the question: What were the most important neighborhood features in 2011 that caused certain behaviors of PtR ratio over the years? We wanted to make a predictive model for current PtR ratios across the United States using these features. </p><br>
+
+        <p class="emphasis">Baseline Model</p>
+        <p>We decided to use a simple model where we predict that zipcodes have the same Price-to-Rent as in 2011. This will be called our baseline model. After gathering 2011 PtR ratios for each zipcode, we examined how well this baseline model predicted current ratios. </p>
+
+      <br>
+      <p class="emphasis">Choosing Features</p>
+      <p>We wanted to build a model that would beat this baseline by informing it with our demographic and economic data. We incorporated our demographic and economic data with the 2011 baseline in a regression model to identify the best combination of features for predicting PtR ratios. After transforming and normalizing our features, we used forward selection to identify features to include in our regression model. The features that were identified as being useful predictors of PtR are shown below.</p><br>
+
+      <img src="images/features.png" width="100%"><br>
+      <br><br>
+      <p>Below we compare our response variable (2015 Price-to-rent Ratio) with three of the predictors that we used in our model. We see that the three predictors (family size, household size of renter-occupied units, male householder with no wife present) have similar trends across the United States. However, it is hard to tell whether we can immediately see a correlation with the response variable given the sparseness of our house and rental price data.</p>
+        <div class="graph" id="responsevis"><br></div>
+        <div class="graph" id="featurevis3"><br></div>
+      
+
+      <p class="title emphasis">Results</p>
+      <p>We regressed our selected features against 2015 PTR ratios in each zipcode using Ordinary Least Squares, Ridge, and Lasso methods of regression. The performance of each of these regressions as well as the baseline are shown below. So how well did our models perform?</p><br>
+      This graph shows the overall performance of all of our models.<br><br>
+      <img src="images/overall.png" width="80%" class="stats"><br><br>
+      The next graph shows the performance of all our models zoomed in on one section (the lowest ratios). We can see that our models perform slightly better than the baseline.<br><br><br>
+      <img src="images/all_zoomed.png" width="80%" class="stats"><br><br>
+      The next graph shows the overall performance of our best model.<br><br><br>
+      <img src="images/overall_best.png" width="80%" class="stats"><br><br>
+      Here we show a zoomed in view of our plot in order to view with higher resolution how well our model fits the actual results. We observe that the yellow line, which is our Ridge regression containing all of the demographic and economic data tends to stay closer to the actual PTRs than the baseline model alone. This allows us a visual confirmation of the decreased RMSE and adjusted R-squared that the Ridge regression gives us.<br><br><br>
+      <img src="images/best_model.png" width="80%" class="stats"><br><br>
+
+      <p>As you can see, we were able to predict better than the baseline. We can see how good our predictions were at a geographical level--which counties were better explained by our models compared to others?</p><br>
+      <p class="emphasis">Note: Scroll on the maps to zoom.</p>
+      <div class="graph" id="threevis"><br></div>
+      <p class="emphasis">
+        
+      <div id="space"></div>
+      <div class="graph" id="yelpvis"><br></div>
+
+
+    </div>
+    <div class="col-md-7"><p class="footer">Eliza Hale, Code He, Austin Wu, Anna Zhong for CS109</p></div>
+
+
+  
+  <script>
+        
+        //to fade things in
+        var fs = 1500;
+        var fs_2 = 0;
+        $("#back").fadeIn(fs);
+        
+        //var ratioDelta_Vis = new TwoVis(d3.select("#twovis"), "ratio_pct_delta", "Price-to-Rent Ratio % Change from 2011 to 2015", "t");
+        //var ratioDelta_Vis = new TwoVis(d3.select("#twovis"), "ratio_pct_delta_new", "Price-to-Rent Ratio % Change from 2011 to 2015", "t");
+
+        //var h2011_Vis = new OneVis(d3.select("#onevis"), "h_agg_2011_new", "House Prices 2011", "t");
+        //var h2015_Vis = new OneVis(d3.select("#onevis"), "h_agg_2015_adj_new", "House Prices 2015", "t");
+
+        //var r2011_Vis = new OneVis(d3.select("#onevis"), "r_agg_2011_new", "Rental Prices 2011", "t");
+        //var r2015_Vis = new OneVis(d3.select("#onevis"), "r_agg_2015_adj_new", "Rental Prices 2015", "t");
+        
+        var hrRatio2011_Vis = new OneVis(d3.select("#onevis"), "ratio_2011_new", "Price-to-Rent Ratio 2011", "t");
+        var hrRatio2015_Vis = new OneVis(d3.select("#onevis"), "ratio_2015_new", "Price-to-Rent Ratio 2015", "t");
+
+        var population_Vis = new OneVis(d3.select("#featurevis"), "A001_new", "Population", "t");
+        var income_Vis = new OneVis(d3.select("#featurevis"), "median_income_new", "Median Income", "t");
+        
+        var black_Vis = new OneVis(d3.select("#featurevis1"), "A032_new", "Race: % Black", "t");
+        var asian_Vis = new OneVis(d3.select("#featurevis1"), "A034_new", "Race: % Asian", "t");
+
+        var family_Vis = new OneVis(d3.select("#featurevis2"), "A037_new", "% Family Households", "t");
+        var single_Vis = new OneVis(d3.select("#featurevis2"), "A049_new", "Occupied Housing Units", "t");
+
+        var response_Vis = new OneVis(d3.select("#responsevis"), "ratio_2015_new", "Price-to-Rent Ratio 2015", "t");
+        var family_size_Vis = new ThreeVis(d3.select("#featurevis3"), "A053_new", "Family Size", "t");
+        var renter_size_Vis = new ThreeVis(d3.select("#featurevis3"), "A056_new", "Household Size of Renter-Occupied Units", "t");
+        var male_Vis = new ThreeVis(d3.select("#featurevis3"), "A038_new", "Male Householder, No Wife Present", "t");
+
+        var residual_Vis = new TwoVis(d3.select("#threevis"), "residuals_new", "Model Residuals", "t");
+
+        //var yelp_Vis = new TwoVis(d3.select("#yelpvis"), "shopping_new", "Yelp Shopping", "t");
+        
+
+        (function($) {
+          $.fn.goTo = function() {
+            $('html, body').animate({
+              scrollTop: ($(this).offset().top -50) + 'px'
+            }, 1000);
+            return this; // for chaining...
+          }
+        })(jQuery);
+
+        var start_button = document.getElementById("start_button");
+        start_button.addEventListener("click", function() { 
+          $('#motivation').goTo();
+          console.log("clicked")
+        });
+
+        var nav_motivation = document.getElementById("nav_motivation");
+        nav_motivation.addEventListener("click", function() { 
+          $('#motivation').goTo();
+          console.log("clicked")
+        });
+
+        var nav_analysis = document.getElementById("nav_analysis");
+        nav_analysis.addEventListener("click", function() { 
+          $('#analysis').goTo();
+          console.log("clicked")
+        });
+
+        
+    </script>
+</body>
+</html>
